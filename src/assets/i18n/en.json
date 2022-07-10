@@ -1,12 +1,20 @@
 {
   "PAGES": {
-      "HOME": {
-          "TITLE": "App works !",
-          "GO_TO_DETAIL": "Go to Detail"
-      },
-      "DETAIL": {
-        "TITLE": "Detail page !",
-        "BACK_TO_HOME": "Back to Home"
+    "HOME": {
+      "TITLE": "D2 Block - Blocking site",
+      "DETAIL": "A simple app to block site",
+      "TABLE": {
+        "HEADER": {
+          "NAME": "Sites",
+          "DESCRIPTION": "Description",
+          "STATUS": "Status",
+          "ACTION": "Action"
+        }
+      }
+    },
+    "DETAIL": {
+      "TITLE": "Detail page !",
+      "BACK_TO_HOME": "Back to Home"
     }
   }
 }

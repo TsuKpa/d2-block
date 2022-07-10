@@ -1,3 +1,23 @@
-:host {
-  
+tr {
+
+  th,
+  td {
+    @apply p-4;
+  }
+
+  th {
+    @apply text-left;
+  }
+}
+
+.search {
+  width: calc(100vw - 30rem);
+}
+
+.disable {
+  @apply bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+}
+
+.enable {
+  @apply bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ;
 }
