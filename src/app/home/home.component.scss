@@ -19,5 +19,44 @@ tr {
 }
 
 .enable {
-  @apply bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ;
+  @apply bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+}
+
+.btn {
+  @apply ml-6 flex items-center rounded-md text-white text-sm font-medium pl-2 pr-3 py-2 shadow-sm;
+}
+
+.btn-blue {
+  @apply bg-blue-400;
+}
+
+.btn-blue:hover {
+  @apply bg-blue-500;
+}
+
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%; /* Full height */
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #d3dcef;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30rem;
+  transform: translate(-50%, -50%);
 }
