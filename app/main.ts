@@ -1,15 +1,16 @@
-import { app, BrowserWindow, screen } from 'electron';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as url from 'url';
+const { app, BrowserWindow } = require('electron');
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
 
-let win: BrowserWindow = null;
+const { join } = require('path');
+
+let win = null;
 const args = process.argv.slice(1),
-  serve = args.some(val => val === '--serve');
+  serve = args.some((val) => val === '--serve');
 
-function createWindow(): BrowserWindow {
-
-  const electronScreen = screen;
+function createWindow() {
+  const electronScreen = require('electron').screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
@@ -20,8 +21,8 @@ function createWindow(): BrowserWindow {
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
-      allowRunningInsecureContent: (serve) ? true : false,
-      contextIsolation: false,  // false if you want to run e2e test with Spectron
+      allowRunningInsecureContent: serve ? true : false,
+      contextIsolation: false, // false if you want to run e2e test with Spectron
     },
   });
 
@@ -36,15 +37,17 @@ function createWindow(): BrowserWindow {
     let pathIndex = './index.html';
 
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
+      // Path when running electron in local folder
       pathIndex = '../dist/index.html';
     }
 
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, pathIndex),
-      protocol: 'file:',
-      slashes: true
-    }));
+    win.loadURL(
+      url.format({
+        pathname: path.join(__dirname, pathIndex),
+        protocol: 'file:',
+        slashes: true,
+      })
+    );
   }
 
   // Emitted when the window is closed.
@@ -63,7 +66,21 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
-  app.on('ready', () => setTimeout(createWindow, 400));
+  app.on('ready', async () => {
+    setTimeout(createWindow, 400);
+
+    const low = require('lowdb');
+    const FileSync = require('lowdb/adapters/FileSync');
+    const adapter = new FileSync('database.json');
+    const db = low(adapter);
+
+    await db.read();
+    db.defaults({ sites: [] }).write();
+    db.get('sites').push({b: 2}).write();
+    // // Write db.data content to db.json
+    // await db.write();
+    console.log(db.get('sites'));
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
@@ -81,7 +98,6 @@ try {
       createWindow();
     }
   });
-
 } catch (e) {
   // Catch Error
   // throw e;

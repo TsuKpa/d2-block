@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
-import { ipcRenderer, webFrame } from 'electron';
 import * as childProcess from 'child_process';
+import { ipcRenderer, webFrame } from 'electron';
 import * as fs from 'fs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ElectronService {
   ipcRenderer: typeof ipcRenderer;
@@ -40,5 +40,18 @@ export class ElectronService {
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
+  }
+
+  async getData() {
+    // this.fs.readFile(
+    //   'c:\\windows\\system32\\drivers\\etc\\hosts',
+    //   { encoding: 'utf-8' }, function(err, data) {
+    //     if (!err) {
+    //       console.log('received data: ' + data);
+    //     } else {
+    //       console.log(err);
+    //     }
+    //   }
+    // );
   }
 }
