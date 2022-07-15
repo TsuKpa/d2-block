@@ -1,7 +1,11 @@
 {
-  "name": "d2 block",
+  "name": "d2-block",
   "version": "1.0.0",
   "main": "main.js",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "electron-json-storage": "4.5.0",
+    "fs": "0.0.1-security",
+    "lowdb": "^1.0.0"
+  }
 }

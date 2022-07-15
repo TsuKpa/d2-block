@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ElectronService } from '@app/core/services';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   showModal = false;
-  constructor(private router: Router) { }
+  constructor(private electronService: ElectronService) { }
 
   ngOnInit(): void {
-
+    // console.log(this.electronService.isElectron);
+    this.electronService.getData();
 
   }
 
