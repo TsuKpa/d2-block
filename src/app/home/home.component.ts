@@ -12,7 +12,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.electronService.isElectron);
-    this.electronService.getData();
+    this.electronService.findAll();
+    this.electronService.create({
+        name: 'Facebook',
+        url: 'fb.com',
+        description: 'fff',
+        isEnabled: true
+    });
 
   }
 
