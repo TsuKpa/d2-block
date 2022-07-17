@@ -63,10 +63,10 @@ function createWindow() {
 }
 
 const uuid = () =>
-  String(
-    Date.now().toString(32) +
-      Math.random().toString(16)
-  ).replace(/\./g, '')
+    String(Date.now().toString(32) + Math.random().toString(16)).replace(
+        /\./g,
+        ''
+    );
 
 try {
     // This method will be called when Electron has finished
@@ -93,19 +93,14 @@ try {
             return !!site;
         };
 
-        // Handle query
-        ipcMain.handle('find-all', (event) => {
-            const result = db.get('sites').value();
-            return result || [];
-        });
+        const isExistUrl = (text: string): boolean => {
+            if (!text) throw new Error('Invalid Id');
+            text = text.toLowerCase();
+            const site = db.get('sites').find({ url: text }).value();
+            return !!site;
+        };
 
-        ipcMain.handle('find-one', (event, id: string) => {
-            if (!id) return null;
-            const site = db.get('sites').find({ id }).value();
-            return site || null;
-        });
-
-        ipcMain.handle('create', (event, data: string) => {
+        const create = (event, data: string) => {
             const site: {
                 id?: string;
                 name: string;
@@ -119,7 +114,39 @@ try {
                 return result;
             }
             return null;
+        }
+
+        // Handle query
+        ipcMain.handle('read-file-host', (event, rows: string[]) => {
+            if (!_.isArray(rows)) throw new Error('Invalid array!');
+            for (let row of rows) {
+                row = row.toLowerCase();
+                if (!isExistUrl(row)) {
+                    let stringData = JSON.stringify({
+                        name: row,
+                        url: row,
+                        description: '',
+                        isEnabled: true
+                    });
+                    create(new Event('load'), stringData);
+                }
+            }
+            const result = db.get('sites').value();
+            return result || [];
         });
+
+        ipcMain.handle('find-all', (event) => {
+            const result = db.get('sites').value();
+            return result || [];
+        });
+
+        ipcMain.handle('find-one', (event, id: string) => {
+            if (!id) return null;
+            const site = db.get('sites').find({ id }).value();
+            return site || null;
+        });
+
+        ipcMain.handle('create', create);
 
         ipcMain.handle('update', (event, data: string) => {
             const site: {

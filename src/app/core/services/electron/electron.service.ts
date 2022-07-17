@@ -42,20 +42,41 @@ export class ElectronService {
         return !!(window && window.process && window.process.type);
     }
 
+    readFileHost() {
+        this.fs.readFile(
+            'c:\\windows\\system32\\drivers\\etc\\hosts',
+            { encoding: 'utf-8' },
+            function(err, data) {
+                if (!err) {
+                    const result = data
+                        .split('\n')
+                        .filter(
+                            (row) =>
+                                row.includes('127.0.0.1') ||
+                                row.includes('#127.0.0.1')
+                        )
+                        .map((row) => {
+                            row = row
+                                .replace(/^.*[ ,\t]+/, '')
+                                .replace('127.0.0.1', '')
+                                .trim();
+                            return row;
+                        });
+                    console.log(result, 'after read file host');
+                    this.ipcRenderer.invoke('read-file-host', result).then((item) => {
+                        console.log('data from file host, received from main:', item);
+                    });
+                } else {
+                    console.log(err);
+                }
+            }
+        );
+    }
+
     findAll() {
         this.ipcRenderer.invoke('find-all').then((data) => {
             console.log('find all sites, received from main:', data);
         });
-        // this.fs.readFile(
-        //   'c:\\windows\\system32\\drivers\\etc\\hosts',
-        //   { encoding: 'utf-8' }, function(err, data) {
-        //     if (!err) {
-        //       console.log('received data: ' + data);
-        //     } else {
-        //       console.log(err);
-        //     }
-        //   }
-        // );
     }
 
     findOne(id: string) {
@@ -70,9 +91,11 @@ export class ElectronService {
         description: string;
         isEnabled: boolean;
     }) {
-        this.ipcRenderer.invoke('create', JSON.stringify(data)).then((result) => {
-            console.log('create, received from main:', result);
-        });
+        this.ipcRenderer
+            .invoke('create', JSON.stringify(data))
+            .then((result) => {
+                console.log('create, received from main:', result);
+            });
     }
 
     update(data: {
@@ -89,7 +112,7 @@ export class ElectronService {
 
     changeStatus(id: string) {
         this.ipcRenderer.invoke('change-status', id).then((data) => {
-            console.log('find one site, received from main:', data);
+            console.log('change status, received from main:', data);
         });
     }
 }
