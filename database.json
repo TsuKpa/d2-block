@@ -20,6 +20,20 @@
       "description": "www",
       "isEnabled": true,
       "id": "1g84qag9f0e43956df12d7b"
+    },
+    {
+      "name": "Zalo",
+      "url": "www.zalo.com",
+      "description": "www",
+      "isEnabled": true,
+      "id": "1g86a91q30cff52e33eae04"
+    },
+    {
+      "name": "Zalo",
+      "url": "www.zalo.com",
+      "description": "www",
+      "isEnabled": true,
+      "id": "1g86acah70cb52948eabe76"
     }
   ]
 }

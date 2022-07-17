@@ -118,6 +118,8 @@ try {
 
         // Handle query
         ipcMain.handle('read-file-host', (event, rows: string[]) => {
+            console.log(rows);
+
             if (!_.isArray(rows)) throw new Error('Invalid array!');
             for (let row of rows) {
                 row = row.toLowerCase();

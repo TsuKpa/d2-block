@@ -10,16 +10,16 @@ export class HomeComponent implements OnInit {
   showModal = false;
   constructor(private electronService: ElectronService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // console.log(this.electronService.isElectron);
-    this.electronService.findAll();
-    this.electronService.readFileHost();
-    this.electronService.create({
-        name: 'Zalo',
-        url: 'www.zalo.com',
-        description: 'www',
-        isEnabled: true
-    });
+    await this.electronService.findAll();
+    await this.electronService.readFileHost();
+    // this.electronService.create({
+    //     name: 'Zalo',
+    //     url: 'www.zalo.com',
+    //     description: 'www',
+    //     isEnabled: true
+    // });
 
   }
 
