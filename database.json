@@ -1,3 +1,25 @@
 {
-  "sites": []
+  "sites": [
+    {
+      "name": "Facebook",
+      "url": "fb.com",
+      "description": "fff",
+      "isEnabled": true,
+      "id": "1g84lpvlt0f6090bf188ef5"
+    },
+    {
+      "name": "Facebook",
+      "url": "fb.com",
+      "description": "fff",
+      "isEnabled": true,
+      "id": "1g84nohhg00803970d8a13d"
+    },
+    {
+      "name": "Zalo",
+      "url": "www.zalo.com",
+      "description": "www",
+      "isEnabled": true,
+      "id": "1g84qag9f0e43956df12d7b"
+    }
+  ]
 }
