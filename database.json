@@ -34,6 +34,76 @@
       "description": "www",
       "isEnabled": true,
       "id": "1g86acah70cb52948eabe76"
+    },
+    {
+      "name": "localhost",
+      "url": "localhost",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied10011e9afccc34be"
+    },
+    {
+      "name": "systweak.com",
+      "url": "systweak.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied120a950427a7e9dd"
+    },
+    {
+      "name": "updateservice1.systweak.com",
+      "url": "updateservice1.systweak.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied140f6d2e29cd6a6b"
+    },
+    {
+      "name": "www.systweak.com",
+      "url": "www.systweak.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied15068b0886e640ee"
+    },
+    {
+      "name": "systemspeedup.systweak.com",
+      "url": "systemspeedup.systweak.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied170d1a2d69f81e68"
+    },
+    {
+      "name": "systweak.com/stcheckgenuineness",
+      "url": "systweak.com/stcheckgenuineness",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied1907e3a3f8e507b8"
+    },
+    {
+      "name": "license.piriform.com",
+      "url": "license.piriform.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied1b0341b07370773e"
+    },
+    {
+      "name": "tonec.com",
+      "url": "tonec.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied1c06b301042221bc"
+    },
+    {
+      "name": "http://www.tonec.com",
+      "url": "http://www.tonec.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied1e0616cb07c8f11"
+    },
+    {
+      "name": "http://internetdownloadmanager.com/invalid_serial2.html?",
+      "url": "http://internetdownloadmanager.com/invalid_serial2.html?",
+      "description": "",
+      "isEnabled": true,
+      "id": "1g8tied1g02d51f44e1aa28"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
@@ -15,6 +15,8 @@ export class ElectronService {
     webFrame: typeof webFrame;
     childProcess: typeof childProcess;
     fs: typeof fs;
+    dataTables: Site[] = [];
+    dataChangeEvent: EventEmitter<Site[]> = new EventEmitter();
 
     constructor() {
         // Conditional imports
@@ -48,7 +50,7 @@ export class ElectronService {
         this.fs.readFile(
             'c:\\windows\\system32\\drivers\\etc\\hosts',
             { encoding: 'utf-8' },
-            (err, data) => {
+            async (err, data) => {
                 if (!err) {
                     const result = data
                         .split('\n')
@@ -66,16 +68,18 @@ export class ElectronService {
                         });
                     console.log(result, 'after read file host');
                     rows = _.cloneDeep(result);
+                    const finalResult: Site[] = await this.ipcRenderer.invoke(
+                        'read-file-host',
+                        rows
+                    );
+                    this.dataTables = _.cloneDeep(finalResult);
+                    console.log(finalResult, 'final');
+                    this.dataChangeEvent.emit(this.dataTables);
                 } else {
                     console.log(err);
                 }
             }
         );
-        const finalResult: Site[] = await this.ipcRenderer.invoke(
-            'read-file-host',
-            rows
-        );
-        console.log(finalResult);
     }
 
     async findAll(): Promise<Site[]> {
@@ -110,7 +114,7 @@ export class ElectronService {
     }
 }
 
-interface Site {
+export interface Site {
     id?: string;
     name: string;
     url: string;
