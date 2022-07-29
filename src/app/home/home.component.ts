@@ -10,25 +10,33 @@ import * as _ from 'lodash';
 export class HomeComponent implements OnInit {
     showModal = false;
     rows: Site[] = [];
+    textSearch = '';
     constructor(private electronService: ElectronService) {}
 
     async ngOnInit(): Promise<void> {
         // console.log(this.electronService.isElectron);
-        await this.electronService.findAll();
         await this.electronService.readFileHost();
         this.electronService.dataChangeEvent.subscribe((data) => {
             console.log(data, 'event');
             this.rows = _.cloneDeep(data) || [];
         });
-        // this.electronService.create({
-        //     name: 'Zalo',
-        //     url: 'www.zalo.com',
-        //     description: 'www',
-        //     isEnabled: true
-        // });
+        setTimeout(() => {
+            this.filter(null);
+        }, 1000);
     }
 
-    filter() {
-        this.rows = _.cloneDeep(this.electronService.dataTables);
+    filter(textSearch) {
+        console.log(textSearch);
+        if (textSearch) {
+            const rows: Site[] = _.cloneDeep(this.electronService.dataTables);
+            this.rows = rows.filter(
+                (row) =>
+                    row.name.includes(textSearch) ||
+                    row.description.includes(textSearch) ||
+                    row.url.includes(textSearch)
+            );
+        } else {
+            this.rows = _.cloneDeep(this.electronService.dataTables);
+        }
     }
 }
