@@ -70,7 +70,7 @@
                                     {{row.isEnabled ? 'Enable' : 'Disable'}}
                                 </span></td>
                             <td class="table-data w-1/6">
-                                <div (click)="showModal = !showModal"
+                                <div (click)="openEditDialog(row)"
                                     class="flex items-center cursor-pointer hover:text-blue-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -94,10 +94,10 @@
 <!-- The Modal -->
 <div class="modal shadow" [ngStyle]="{'display': showModal ? 'block': 'none'}">
     <!-- Modal content -->
-    <div class="modal-content rounded-lg" [Spinner]="isLoading">
+    <div class="modal-content rounded-lg" [Spinner]="isLoadingDialog">
         <div class="border-b border-gray-200 pb-5">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Add site
+                {{ isEdit ? 'Edit site' : 'Add site'}}
             </h3>
         </div>
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm)">
@@ -145,7 +145,7 @@
                 <div class="mt-4">
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">
                         Description</label>
-                    <textarea id="description" rows="4" formControlName="description"
+                    <textarea id="description" rows="3" formControlName="description"
                         class="form-control block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Leave a description..."></textarea>
                 </div>
@@ -153,8 +153,7 @@
                     <div class="flex items-start mb-6">
                         <div class="flex items-center h-5">
                             <input id="isEnabled" type="checkbox" formControlName="isEnabled"
-                                class="form-control w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                                required>
+                                class="form-control w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
                         </div>
                         <label for="isEnabled" class="ml-2 text-sm font-medium text-gray-900 ">
                             Enable this site
@@ -163,10 +162,15 @@
                 </div>
             </div>
             <div class="mt-4 flex justify-between">
-                <button type="submit" [disabled]="contactForm.invalid"
+                <button type="submit" [disabled]="contactForm.invalid" *ngIf="!isEdit"
                     class="sm:rounded-lg text-white bg-green-400 disabled:bg-stone-300
                     hover:bg-green-500 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-700 dark:focus:ring-green-500">
                     Add
+                </button>
+                <button type="submit" [disabled]="contactForm.invalid" *ngIf="isEdit"
+                    class="sm:rounded-lg text-white bg-blue-500 disabled:bg-stone-300
+                    hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-500 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-500">
+                    Save
                 </button>
                 <button (click)="showModal = !showModal" type="button"
                     class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">

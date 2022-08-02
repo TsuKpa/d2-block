@@ -158,14 +158,13 @@ try {
             } = JSON.parse(data);
             if (!isExistId(site.id)) throw new Error('id not exist');
             if (_.isObject(site)) {
-                db.get('posts').find({ id: site.id }).assign(site).write();
+                return db.get('sites').find({ id: site.id }).assign(site).write();
             }
-            return null;
         });
 
         ipcMain.handle('change-status', (event, id: string) => {
             if (!isExistId(id)) throw new Error('id not exist');
-            const site = db.get('posts').find({ id }).value();
+            const site = db.get('sites').find({ id }).value();
             site.isEnabled = !site.isEnabled;
             return site.write();
         });

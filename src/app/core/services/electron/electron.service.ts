@@ -90,20 +90,20 @@ export class ElectronService {
         return result;
     }
 
-    async create(data: Site): Promise<Site> {
-        const result: Site = await this.ipcRenderer.invoke(
+    async create(data: Site): Promise<void> {
+        await this.ipcRenderer.invoke(
             'create',
             JSON.stringify(data)
         );
-        return result;
+        await this.readFileHost();
     }
 
-    async update(data: Site): Promise<Site> {
-        const result: Site = await this.ipcRenderer.invoke(
+    async update(data: Site): Promise<void> {
+        await this.ipcRenderer.invoke(
             'update',
             JSON.stringify(data)
         );
-        return result;
+        await this.readFileHost();
     }
 
     async changeStatus(id: string): Promise<Site> {

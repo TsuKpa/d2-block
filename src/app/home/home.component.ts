@@ -13,7 +13,12 @@ export class HomeComponent implements OnInit {
     rows: Site[] = [];
     textSearch = '';
     isLoading = false;
+
     contactForm: FormGroup;
+    isEdit: boolean;
+    isLoadingDialog: boolean;
+    currentId: string = null;
+
     constructor(private electronService: ElectronService,
         private fb: FormBuilder) { }
 
@@ -37,12 +42,26 @@ export class HomeComponent implements OnInit {
         }, 1000);
     }
 
-    onSubmit(form: FormGroup) {
-        console.log('Valid?', form.valid); // true or false
+    async onSubmit(form: FormGroup) {
         console.log('value', form.value);
-      }
+        console.log(this.isEdit);
+        this.isLoadingDialog = true;
+        // eslint-disable-next-line curly
+        if (this.isEdit && !this.currentId) return;
+        if (this.isEdit) {
+            await this.electronService.update({
+                id: this.currentId,
+                ...form.value
+            });
+        } else {
+            await this.electronService.create(form.value);
+        }
+        this.isLoadingDialog = false;
+        this.filter(null);
+        this.showModal = !this.showModal;
+    }
 
-    filter(textSearch) {
+    filter(textSearch: string) {
         console.log(textSearch);
         this.isLoading = true;
         if (textSearch) {
@@ -61,13 +80,29 @@ export class HomeComponent implements OnInit {
         }, 200);
     }
 
+    openEditDialog(row: Site) {
+        console.log(row);
+        this.isEdit = true;
+        this.showModal = !this.showModal;
+        this.currentId = row.id;
+        this.contactForm.setValue({
+            name: row.name,
+            url: row.url,
+            description: row.description,
+            isEnabled: row.isEnabled
+        });
+        // this.contactForm.valid
+    }
+
     openAddDialog() {
+        this.isEdit = false;
         this.contactForm.reset({
             name: '',
             url: '',
-            desription: '',
+            description: '',
             isEnabled: true
         });
+        this.currentId = null;
         this.showModal = !this.showModal;
     }
 }

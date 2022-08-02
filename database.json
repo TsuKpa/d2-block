@@ -3,15 +3,15 @@
     {
       "name": "Facebook",
       "url": "fb.com",
-      "description": "fff",
+      "description": "xxx",
       "isEnabled": true,
       "id": "1g84lpvlt0f6090bf188ef5"
     },
     {
       "name": "Facebook",
       "url": "fb.com",
-      "description": "fff",
-      "isEnabled": true,
+      "description": "hhhhhhh",
+      "isEnabled": false,
       "id": "1g84nohhg00803970d8a13d"
     },
     {
@@ -25,7 +25,7 @@
       "name": "Zalo",
       "url": "www.zalo.com",
       "description": "www",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1g86a91q30cff52e33eae04"
     },
     {
@@ -46,7 +46,7 @@
       "name": "systweak.com",
       "url": "systweak.com",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1g8tied120a950427a7e9dd"
     },
     {
@@ -87,7 +87,7 @@
     {
       "name": "tonec.com",
       "url": "tonec.com",
-      "description": "",
+      "description": "nr",
       "isEnabled": true,
       "id": "1g8tied1c06b301042221bc"
     },
@@ -95,7 +95,7 @@
       "name": "http://www.tonec.com",
       "url": "http://www.tonec.com",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1g8tied1e0616cb07c8f11"
     },
     {
@@ -104,6 +104,20 @@
       "description": "",
       "isEnabled": true,
       "id": "1g8tied1g02d51f44e1aa28"
+    },
+    {
+      "name": "github",
+      "url": "github.com",
+      "description": "aaaaaaaaaaa",
+      "isEnabled": true,
+      "id": "1g9fliqt108f9e502a4a6bd"
+    },
+    {
+      "name": "guthub",
+      "url": "github.com",
+      "description": "ffffffffff",
+      "isEnabled": true,
+      "id": "1g9fll7r30a06b9c874524e"
     }
   ]
 }
