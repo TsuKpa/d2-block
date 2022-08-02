@@ -66,14 +66,12 @@ export class ElectronService {
                                 .trim();
                             return row;
                         });
-                    console.log(result, 'after read file host');
                     rows = _.cloneDeep(result);
                     const finalResult: Site[] = await this.ipcRenderer.invoke(
                         'read-file-host',
                         rows
                     );
                     this.dataTables = _.cloneDeep(finalResult);
-                    console.log(finalResult, 'final');
                     this.dataChangeEvent.emit(this.dataTables);
                 } else {
                     console.log(err);

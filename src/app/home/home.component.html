@@ -1,4 +1,4 @@
-<div class="m-5 pb-5 h-full">
+<div class="m-5 pb-5 h-full" [Spinner]="isLoading">
     <!-- Header -->
     <div class="bg-slate-100 shadow sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
@@ -25,7 +25,7 @@
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg> Filter
                 </button>
-                <button class="btn btn-green" (click)="showModal = !showModal">
+                <button class="btn btn-green" (click)="openAddDialog()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -39,7 +39,7 @@
         <div class="border-t border-gray-200 p-6">
             <table class="bg-white shadow sm:rounded-lg border-collapse border border-slate-100 w-full h-full">
                 <thead class="border-b border-gray-200 flex w-full">
-                    <tr class="flex w-full mb-4">
+                    <tr class="flex w-full mb-2">
                         <th class="p-4 w-2/4">{{'PAGES.HOME.TABLE.HEADER.NAME' | translate}}</th>
                         <th class="p-4 w-1/4">{{'PAGES.HOME.TABLE.HEADER.DESCRIPTION' | translate}}</th>
                         <th class="p-4 w-1/6">{{'PAGES.HOME.TABLE.HEADER.STATUS' | translate}}</th>
@@ -94,59 +94,85 @@
 <!-- The Modal -->
 <div class="modal shadow" [ngStyle]="{'display': showModal ? 'block': 'none'}">
     <!-- Modal content -->
-    <div class="modal-content rounded-lg" [Spinner]="true">
+    <div class="modal-content rounded-lg" [Spinner]="isLoading">
         <div class="border-b border-gray-200 pb-5">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Edit site
+                Add site
             </h3>
         </div>
-        <div class="content my-4">
-            <div>
-                <label for="email-address-icon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Site Name</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
-                        </svg>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm)">
+            <div class="content my-4">
+                <div class="mb-2">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Site Name <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <input type="text" name="name" formControlName="name"
+                            class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                            placeholder="Name of website"
+                            [ngClass]="{'border-red-500': contactForm.get('name').invalid && (contactForm.get('name').dirty || contactForm.get('name').touched)}">
+                        <ng-container
+                            *ngIf="contactForm.get('name').invalid && (contactForm.get('name').dirty || contactForm.get('name').touched)">
+                            <div class="text-red-500">
+                                Please provide a name.
+                            </div>
+                        </ng-container>
                     </div>
-                    <input type="url" id="email-address-icon"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 "
-                        placeholder="www.abc.xyz">
+                </div>
+                <div>
+                    <label for="url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        URL <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <input type="url" name="url" formControlName="url"
+                            class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-11 p-2.5 "
+                            placeholder="www.abc.xyz"
+                            [ngClass]="{'border-red-500': contactForm.get('url').invalid && (contactForm.get('url').dirty || contactForm.get('url').touched)}">
+                    </div>
+                    <ng-container
+                        *ngIf="contactForm.get('url').invalid && (contactForm.get('url').dirty || contactForm.get('url').touched)">
+                        <div class="text-red-500">
+                            Please provide a valid URL.
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="mt-4">
+                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">
+                        Description</label>
+                    <textarea id="description" rows="4" formControlName="description"
+                        class="form-control block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Leave a description..."></textarea>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-start mb-6">
+                        <div class="flex items-center h-5">
+                            <input id="isEnabled" type="checkbox" formControlName="isEnabled"
+                                class="form-control w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                                required>
+                        </div>
+                        <label for="isEnabled" class="ml-2 text-sm font-medium text-gray-900 ">
+                            Enable this site
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 ">
-                    Description</label>
-                <textarea id="message" rows="4"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Leave a description..."></textarea>
+            <div class="mt-4 flex justify-between">
+                <button type="submit" [disabled]="contactForm.invalid"
+                    class="sm:rounded-lg text-white bg-green-400 disabled:bg-stone-300
+                    hover:bg-green-500 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-500 dark:hover:bg-green-700 dark:focus:ring-green-500">
+                    Add
+                </button>
+                <button (click)="showModal = !showModal" type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    Close
+                </button>
             </div>
-            <div class="mt-4">
-                <div class="flex items-start mb-6">
-                    <div class="flex items-center h-5">
-                        <input id="enable" type="checkbox" value=""
-                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                            required>
-                    </div>
-                    <label for="enable" class="ml-2 text-sm font-medium text-gray-900 ">
-                        Enable this site
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="mt-4 flex justify-between">
-            <button type="button"
-                class="sm:rounded-lg text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Save
-            </button>
-            <button (click)="showModal = !showModal" type="button"
-                class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                Close
-            </button>
-        </div>
+        </form>
     </div>
 </div>
