@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ElectronService, Site } from '@app/core/services';
 import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
     currentId: string = null;
 
     constructor(private electronService: ElectronService,
-        private fb: FormBuilder) { }
+        private fb: FormBuilder,
+        private toastr: ToastrService) { }
 
     async ngOnInit(): Promise<void> {
         const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
@@ -53,8 +55,14 @@ export class HomeComponent implements OnInit {
                 id: this.currentId,
                 ...form.value
             });
+            this.toastr.info('Save site success!', '', {
+                timeOut: 3000,
+            });
         } else {
             await this.electronService.create(form.value);
+            this.toastr.success('Add site success!', '', {
+                timeOut: 3000,
+            });
         }
         this.isLoadingDialog = false;
         this.filter(null);
