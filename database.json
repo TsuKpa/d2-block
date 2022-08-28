@@ -1,130 +1,102 @@
 {
   "sites": [
     {
-      "name": "Facebook",
-      "url": "fb.com",
-      "description": "xxx",
-      "isEnabled": true,
-      "id": "1g84lpvlt0f6090bf188ef5"
-    },
-    {
-      "name": "Facebook",
-      "url": "fb.com",
-      "description": "hhhhhhh",
-      "isEnabled": false,
-      "id": "1g84nohhg00803970d8a13d"
-    },
-    {
-      "name": "Zalo",
-      "url": "www.zalo.com",
-      "description": "www",
-      "isEnabled": true,
-      "id": "1g84qag9f0e43956df12d7b"
-    },
-    {
-      "name": "Zalo",
-      "url": "www.zalo.com",
-      "description": "www",
-      "isEnabled": false,
-      "id": "1g86a91q30cff52e33eae04"
-    },
-    {
-      "name": "Zalo",
-      "url": "www.zalo.com",
-      "description": "www",
-      "isEnabled": true,
-      "id": "1g86acah70cb52948eabe76"
-    },
-    {
       "name": "localhost",
       "url": "localhost",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied10011e9afccc34be"
+      "id": "1gbfscohn0870f4d7080189"
     },
     {
       "name": "systweak.com",
       "url": "systweak.com",
       "description": "",
-      "isEnabled": false,
-      "id": "1g8tied120a950427a7e9dd"
+      "isEnabled": true,
+      "id": "1gbfscohv0a5b77b96876ed"
     },
     {
       "name": "updateservice1.systweak.com",
       "url": "updateservice1.systweak.com",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied140f6d2e29cd6a6b"
+      "id": "1gbfscoi10aef8971881611"
     },
     {
       "name": "www.systweak.com",
       "url": "www.systweak.com",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied15068b0886e640ee"
+      "id": "1gbfscoi3040277c96d12b2"
     },
     {
       "name": "systemspeedup.systweak.com",
       "url": "systemspeedup.systweak.com",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied170d1a2d69f81e68"
+      "id": "1gbfscoi50e2362a19d36dd"
     },
     {
       "name": "systweak.com/stcheckgenuineness",
       "url": "systweak.com/stcheckgenuineness",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied1907e3a3f8e507b8"
+      "id": "1gbfscoi7083e4ce43eb93f"
     },
     {
       "name": "license.piriform.com",
       "url": "license.piriform.com",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied1b0341b07370773e"
+      "id": "1gbfscoi90331896a594846"
     },
     {
       "name": "tonec.com",
       "url": "tonec.com",
-      "description": "nr",
+      "description": "",
       "isEnabled": true,
-      "id": "1g8tied1c06b301042221bc"
+      "id": "1gbfscoic0e2babca48d786"
     },
     {
       "name": "http://www.tonec.com",
       "url": "http://www.tonec.com",
       "description": "",
-      "isEnabled": false,
-      "id": "1g8tied1e0616cb07c8f11"
+      "isEnabled": true,
+      "id": "1gbfscoie07e60d15f85276"
     },
     {
       "name": "http://internetdownloadmanager.com/invalid_serial2.html?",
       "url": "http://internetdownloadmanager.com/invalid_serial2.html?",
       "description": "",
       "isEnabled": true,
-      "id": "1g8tied1g02d51f44e1aa28"
+      "id": "1gbfscoiu0be44f4453daf9"
     },
     {
-      "name": "github",
-      "url": "github.com",
-      "description": "aaaaaaaaaaa",
+      "name": "xxx",
+      "url": "aaa.com.vb",
+      "description": "",
       "isEnabled": true,
-      "id": "1g9fliqt108f9e502a4a6bd"
+      "id": "1gbfte9o60fbdd38bb2483f"
     },
     {
-      "name": "guthub",
-      "url": "github.com",
-      "description": "ffffffffff",
-      "isEnabled": true,
-      "id": "1g9fll7r30a06b9c874524e"
+      "name": "test",
+      "url": "11.com",
+      "description": "đă",
+      "isEnabled": false,
+      "id": "1gbftmj5t04448ed773be05"
     },
     {
-      "name": "ffffff",
-      "url": "zz.wq",
-      "description": "d",
+      "name": "aa",
+      "url": "a.com",
+      "description": "s",
+      "isEnabled": false,
+      "id": "1gbftvkls0215fdaa972f2e"
+    },
+    {
+      "name": "xxx",
+      "url": "google.com",
+      "description": "",
       "isEnabled": true,
-      "id": "1g9i674s209800d81f87341"
+      "id": "1gbiitumv03959f8efef9d6"
     }
   ]
 }
