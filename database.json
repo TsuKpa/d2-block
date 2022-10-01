@@ -4,14 +4,14 @@
       "name": "localhost",
       "url": "localhost",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1gbfscohn0870f4d7080189"
     },
     {
       "name": "systweak.com",
       "url": "systweak.com",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1gbfscohv0a5b77b96876ed"
     },
     {
@@ -25,7 +25,7 @@
       "name": "www.systweak.com",
       "url": "www.systweak.com",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1gbfscoi3040277c96d12b2"
     },
     {
@@ -53,7 +53,7 @@
       "name": "tonec.com",
       "url": "tonec.com",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1gbfscoic0e2babca48d786"
     },
     {
@@ -95,8 +95,78 @@
       "name": "xxx",
       "url": "google.com",
       "description": "",
-      "isEnabled": true,
+      "isEnabled": false,
       "id": "1gbiitumv03959f8efef9d6"
+    },
+    {
+      "name": "aa",
+      "url": "ab.cs",
+      "description": "",
+      "isEnabled": false,
+      "id": "1gbl1e6jn042d36828438e6"
+    },
+    {
+      "name": "fff",
+      "url": "ff.com",
+      "description": "",
+      "isEnabled": true,
+      "id": "1gbl1nqsq0308f91e2b57ab"
+    },
+    {
+      "name": "fffff",
+      "url": "ww.com",
+      "description": "wwww",
+      "isEnabled": false,
+      "id": "1gbnjst5p07d262f7f4dcbc"
+    },
+    {
+      "name": "w",
+      "url": "232.com",
+      "description": "",
+      "isEnabled": false,
+      "id": "1gbnk4h2i0f8bd569f12996"
+    },
+    {
+      "name": "test",
+      "url": "https://vcomic.net/",
+      "description": "",
+      "isEnabled": false,
+      "id": "1gbnkkqci05953eb4cb641c"
+    },
+    {
+      "name": "g",
+      "url": "www.vcomic.net",
+      "description": "",
+      "isEnabled": true,
+      "id": "1gbnksfnf095acdc5e6ea1c"
+    },
+    {
+      "name": "test2",
+      "url": "https://www.vcomic.net/",
+      "description": "",
+      "isEnabled": true,
+      "id": "1gbnktl2v0afa768c6b0731"
+    },
+    {
+      "name": "test3",
+      "url": "vcomic.net",
+      "description": "",
+      "isEnabled": true,
+      "id": "1gbnkvah8004b2007d73539"
+    },
+    {
+      "name": "t",
+      "url": "truyenyy.vip",
+      "description": "Địt cụ mày nhớ",
+      "isEnabled": true,
+      "id": "1gcc9li870401b978babf47"
+    },
+    {
+      "name": "f",
+      "url": "www.facebook.com/",
+      "description": "",
+      "isEnabled": false,
+      "id": "1gcca1vaj0f993c30b5df2a"
     }
   ]
 }

@@ -114,25 +114,19 @@ try {
             }
             let result = '';
             for (const item of data) {
-                let rowText = '';
+                let rowText = '#';
                 if (!item.isEnabled) {
-                    rowText = '#';
+                    rowText = '';
                 }
-                result += (rowText + item.url + ' ' + '127.0.0.1' + '\t\n');
+                result += (rowText + '127.0.0.1' + ' ' + item.url + '\r\n');
             }
-            mv('C:\\Windows\\System32\\drivers\\etc\\hosts', './src/backup/hosts', (err) => {
-                if (err) throw err;
-                console.log('Copy host file success!');
-            });
             fs.writeFile('./src/backup/save/hosts', result, function(err) {
-                if(err) {
-                    return console.log(err);
-                }
+                if(err) throw err;
                 console.log("The file was saved!");
-            });
-            mv('./src/backup/save/hosts', 'C:\\Windows\\System32\\drivers\\etc\\hosts', (err) => {
-                if (err) throw err;
-                console.log('Move new host file success!');
+                fs.copyFile('./src/backup/save/hosts', 'C:\\Windows\\System32\\drivers\\etc\\hosts', (err) => {
+                    if (err) throw err;
+                    console.log('Move new host file success!');
+                });
             });
         }
 
@@ -147,6 +141,8 @@ try {
             if (_.isObject(site)) {
                 site.id = uuid();
                 const result = db.get('sites').push(site).write();
+                console.log(result);
+
                 saveToFileHost(result);
                 return result;
             }
@@ -158,15 +154,17 @@ try {
             if (!_.isArray(rows)) throw new Error('Invalid array!');
             for (let row of rows) {
                 row = row.toLowerCase();
-                if (!isExistUrl(row)) {
-                    let stringData = JSON.stringify({
-                        name: row,
-                        url: row,
-                        description: '',
-                        isEnabled: true
-                    });
-                    create(new Event('load'), stringData);
-                }
+                console.log(row);
+
+                // if (!isExistUrl(row)) {
+                //     let stringData = JSON.stringify({
+                //         name: row,
+                //         url: row,
+                //         description: '',
+                //         isEnabled: true
+                //     });
+                //     create(new Event('load'), stringData);
+                // }
             }
             const result = db.get('sites').value();
             return result || [];
