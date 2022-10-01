@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
 import * as childProcess from 'child_process';
 import { ipcRenderer, webFrame } from 'electron';
 import * as fs from 'fs';
+import * as _ from 'lodash';
 
 @Injectable({
     providedIn: 'root',
@@ -14,6 +15,8 @@ export class ElectronService {
     webFrame: typeof webFrame;
     childProcess: typeof childProcess;
     fs: typeof fs;
+    dataTables: Site[] = [];
+    dataChangeEvent: EventEmitter<Site[]> = new EventEmitter();
 
     constructor() {
         // Conditional imports
@@ -42,11 +45,12 @@ export class ElectronService {
         return !!(window && window.process && window.process.type);
     }
 
-    readFileHost() {
+    async readFileHost(): Promise<void> {
+        let rows: string[] = [];
         this.fs.readFile(
             'c:\\windows\\system32\\drivers\\etc\\hosts',
             { encoding: 'utf-8' },
-            function(err, data) {
+            async (err, data) => {
                 if (!err) {
                     const result = data
                         .split('\n')
@@ -62,10 +66,13 @@ export class ElectronService {
                                 .trim();
                             return row;
                         });
-                    console.log(result, 'after read file host');
-                    this.ipcRenderer.invoke('read-file-host', result).then((item) => {
-                        console.log('data from file host, received from main:', item);
-                    });
+                    rows = _.cloneDeep(result);
+                    const finalResult: Site[] = await this.ipcRenderer.invoke(
+                        'read-file-host',
+                        rows
+                    );
+                    this.dataTables = _.cloneDeep(finalResult);
+                    this.dataChangeEvent.emit(this.dataTables);
                 } else {
                     console.log(err);
                 }
@@ -73,46 +80,42 @@ export class ElectronService {
         );
     }
 
-    findAll() {
-        this.ipcRenderer.invoke('find-all').then((data) => {
-            console.log('find all sites, received from main:', data);
-        });
+    async findAll(): Promise<Site[]> {
+        const result: Site[] = await this.ipcRenderer.invoke('find-all');
+        return result;
     }
 
-    findOne(id: string) {
-        this.ipcRenderer.invoke('find-one', id).then((data) => {
-            console.log('find one site, received from main:', data);
-        });
+    async findOne(id: string): Promise<Site> {
+        const result: Site = await this.ipcRenderer.invoke('find-one', id);
+        return result;
     }
 
-    create(data: {
-        name: string;
-        url: string;
-        description: string;
-        isEnabled: boolean;
-    }) {
-        this.ipcRenderer
-            .invoke('create', JSON.stringify(data))
-            .then((result) => {
-                console.log('create, received from main:', result);
-            });
+    async create(data: Site): Promise<void> {
+        await this.ipcRenderer.invoke(
+            'create',
+            JSON.stringify(data)
+        );
+        await this.readFileHost();
     }
 
-    update(data: {
-        id: string;
-        name: string;
-        url: string;
-        description: string;
-        isEnabled: boolean;
-    }) {
-        this.ipcRenderer.invoke('update', data).then((result) => {
-            console.log('update, received from main:', result);
-        });
+    async update(data: Site): Promise<void> {
+        await this.ipcRenderer.invoke(
+            'update',
+            JSON.stringify(data)
+        );
+        await this.readFileHost();
     }
 
-    changeStatus(id: string) {
-        this.ipcRenderer.invoke('change-status', id).then((data) => {
-            console.log('change status, received from main:', data);
-        });
+    async changeStatus(id: string): Promise<Site> {
+        const result: Site = await this.ipcRenderer.invoke('change-status', id);
+        return result;
     }
+}
+
+export interface Site {
+    id?: string;
+    name: string;
+    url: string;
+    description: string;
+    isEnabled: boolean;
 }

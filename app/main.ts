@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs');
+const mv = require('mv');
 const path = require('path');
 const url = require('url');
 const _ = require('lodash');
@@ -100,6 +101,35 @@ try {
             return !!site;
         };
 
+        // convert data to text in file host
+        const saveToFileHost = (data: {
+            id: string;
+            name: string;
+            url: string;
+            description: string;
+            isEnabled: boolean;
+        }[]) => {
+            if (!_.isArray(data) || !data.length) {
+                return;
+            }
+            let result = '';
+            for (const item of data) {
+                let rowText = '#';
+                if (!item.isEnabled) {
+                    rowText = '';
+                }
+                result += (rowText + '127.0.0.1' + ' ' + item.url + '\r\n');
+            }
+            fs.writeFile('./src/backup/save/hosts', result, function(err) {
+                if(err) throw err;
+                console.log("The file was saved!");
+                fs.copyFile('./src/backup/save/hosts', 'C:\\Windows\\System32\\drivers\\etc\\hosts', (err) => {
+                    if (err) throw err;
+                    console.log('Move new host file success!');
+                });
+            });
+        }
+
         const create = (event, data: string) => {
             const site: {
                 id?: string;
@@ -111,6 +141,9 @@ try {
             if (_.isObject(site)) {
                 site.id = uuid();
                 const result = db.get('sites').push(site).write();
+                console.log(result);
+
+                saveToFileHost(result);
                 return result;
             }
             return null;
@@ -121,15 +154,17 @@ try {
             if (!_.isArray(rows)) throw new Error('Invalid array!');
             for (let row of rows) {
                 row = row.toLowerCase();
-                if (!isExistUrl(row)) {
-                    let stringData = JSON.stringify({
-                        name: row,
-                        url: row,
-                        description: '',
-                        isEnabled: true
-                    });
-                    create(new Event('load'), stringData);
-                }
+                console.log(row);
+
+                // if (!isExistUrl(row)) {
+                //     let stringData = JSON.stringify({
+                //         name: row,
+                //         url: row,
+                //         description: '',
+                //         isEnabled: true
+                //     });
+                //     create(new Event('load'), stringData);
+                // }
             }
             const result = db.get('sites').value();
             return result || [];
@@ -158,16 +193,17 @@ try {
             } = JSON.parse(data);
             if (!isExistId(site.id)) throw new Error('id not exist');
             if (_.isObject(site)) {
-                db.get('posts').find({ id: site.id }).assign(site).write();
+                db.get('sites').find({ id: site.id }).assign(site).write();
+                saveToFileHost(db.get('sites').value());
             }
-            return null;
         });
 
         ipcMain.handle('change-status', (event, id: string) => {
             if (!isExistId(id)) throw new Error('id not exist');
-            const site = db.get('posts').find({ id }).value();
+            const site = db.get('sites').find({ id }).value();
             site.isEnabled = !site.isEnabled;
-            return site.write();
+            site.write();
+            saveToFileHost(db.get('sites').value());
         });
     });
 
